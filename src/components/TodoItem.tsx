@@ -2,6 +2,9 @@ import cn from 'classnames';
 import { Todo } from '../types/Todo';
 import { useEffect, useRef, useState } from 'react';
 
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { v4 as uuidv4 } from 'uuid';
+
 type Props = {
   todo: Todo;
   onDelete: (id: number) => void;
@@ -30,7 +33,8 @@ export const TodoItem: React.FC<Props> = ({
 
   useEffect(() => setIsEditing(false), [todo]);
 
-  const { id, title, completed } = todo;
+  const { title, completed } = todo;
+  const id = uuidv4();
 
   const handleSubmit = () => {
     const correctTitle = updatedTitle.trim();
@@ -42,7 +46,7 @@ export const TodoItem: React.FC<Props> = ({
     }
 
     if (!correctTitle) {
-      onDelete(id);
+      onDelete(todo.id);
 
       return;
     }
@@ -80,7 +84,7 @@ export const TodoItem: React.FC<Props> = ({
 
   return (
     <div
-      key={id}
+      id={id}
       data-cy="Todo"
       className={cn('todo', { completed: completed })}
     >
@@ -124,7 +128,7 @@ export const TodoItem: React.FC<Props> = ({
             type="button"
             className="todo__remove"
             data-cy="TodoDelete"
-            onClick={() => onDelete(id)}
+            onClick={() => onDelete(todo.id)}
           >
             ×
           </button>

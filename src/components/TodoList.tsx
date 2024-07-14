@@ -2,7 +2,6 @@ import React from 'react';
 
 import { Todo } from '../types/Todo';
 import { TodoItem } from './TodoItem';
-import { TempTodoItem } from './TempTodoItem';
 
 type Props = {
   todos: Todo[];
@@ -38,7 +37,15 @@ export const TodoList: React.FC<Props> = ({
         );
       })}
 
-      {tempTodo && <TempTodoItem todo={tempTodo} />}
+      {tempTodo && (
+        <TodoItem
+          todo={tempTodo}
+          isLoadingTodo={isLoading.includes(0)}
+          onDelete={onDelete}
+          updateToggle={updateToggle}
+          onUpdateTodo={onUpdateTodo}
+        />
+      )}
     </section>
   );
 };

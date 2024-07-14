@@ -1,6 +1,7 @@
 import { FormEvent, useEffect } from 'react';
 import cn from 'classnames';
 import { Todo } from '../types/Todo';
+import { ErrorType } from '../types/Errors';
 
 type Props = {
   newTodoTitle: string;
@@ -37,7 +38,7 @@ export const Header: React.FC<Props> = ({
     event.preventDefault();
 
     if (!newTodoTitle.trim()) {
-      onError('Title should not be empty');
+      onError(ErrorType.EMPTY_TITLE);
       setTimeout(() => onError(''), 3000);
 
       return;
